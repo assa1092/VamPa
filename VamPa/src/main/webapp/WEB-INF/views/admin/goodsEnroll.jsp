@@ -159,7 +159,7 @@
            				<label>상품 이미지</label>
            			</div>
            			<div class="form_section_content">
-						<input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
+						<input type="file" multiple id ="fileItem" name='uploadFile' style="height: 30px;">
            			</div>
            		</div>
     		</form>
@@ -493,6 +493,7 @@
 	// 이미지 업로드
 	$("input[type='file']").on("change", function(e){
 		//alert("동작");
+		let formData = new FormData();
 		let fileInput = $('input[name="uploadFile"]');
 		let fileList = fileInput[0].files;
 		let fileObj = fileList[0];
@@ -503,7 +504,29 @@
 		if(!fileCheck(fileObj.name, fileObj.size)){
 			return false;
 		}
-		alert("통과");
+		
+		// 파일 1개 업로드
+		// <input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
+		//formData.append("uploadFile", fileObj);
+		
+		// 파일 여러개 업로드
+		// <input type="file" multiple>
+		 
+		for (let i = 0; i < fileList.length; i++){
+			formData.append("uploadFile", fileList[i]);
+		} 
+		
+
+		$.ajax({
+			url: '/admin/uploadAjaxAction',
+	    	processData : false,
+	    	contentType : false,
+	    	data : formData,
+	    	type : 'POST',
+	    	dataType : 'json'
+		});
+		
+		//alert("통과");
 	});
 	
 	/* var, method related with attachFile */

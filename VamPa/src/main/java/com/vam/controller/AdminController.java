@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -246,6 +247,16 @@ public class AdminController {
 		  rttr.addFlashAttribute("delete_result", result);
 		  
 		  return "redirect:/admin/goodsManage";
+	  }
+	  
+	  // 첨부 파일 업로드
+	  @PostMapping("/uploadAjaxAction")
+	  public void uploadAjaxAtionPOST(MultipartFile uploadFile) {		// 파일 여러개 일경우 MultipartFile[] uploadFile
+		  log.info("-----	uploadAjaxAtionPOST ");
+		  
+		  log.info("파일 이름 : " + uploadFile.getOriginalFilename());
+		  log.info("파일 타입 : " + uploadFile.getContentType());
+		  log.info("파일 크기 : " + uploadFile.getSize());
 	  }
 	  
 	  
