@@ -1,5 +1,8 @@
 package com.vam.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -250,13 +253,46 @@ public class AdminController {
 	  }
 	  
 	  // 첨부 파일 업로드
+	  // 파일 여러개 일경우 MultipartFile[] uploadFile
+	  // 파일 하나일 경우  MultipartFile uploadFile
 	  @PostMapping("/uploadAjaxAction")
-	  public void uploadAjaxAtionPOST(MultipartFile uploadFile) {		// 파일 여러개 일경우 MultipartFile[] uploadFile
+	  public void uploadAjaxAtionPOST(MultipartFile[] uploadFile) {		
 		  log.info("-----	uploadAjaxAtionPOST ");
 		  
-		  log.info("파일 이름 : " + uploadFile.getOriginalFilename());
-		  log.info("파일 타입 : " + uploadFile.getContentType());
-		  log.info("파일 크기 : " + uploadFile.getSize());
+		  String uploadFolder = "C:\\upload";
+		  
+		  // 오늘의 날짜 데이터 값을 가지고 있는 date 변수를 
+		  // "yyyy-MM-dd" 형식의 문자열로 변환을 해주기 위해서 
+		  // SimpleDateFormat의 format 메서드를 호출.
+		  // format 메서드의 인자 값으로 date 변수를 부여합니다.
+		  // String 타입으로 변환된 값을 String 타입의 str 변수를 선언하여 대입합니다.
+		  
+		  
+		  // 날짜 폴더 경로
+		  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		  Date date = new Date();
+		  String str = sdf.format(date);		
+		  String datePath = str.replace("-", File.separator);
+		  
+		  // 날짜 형식 폴더 생성
+		  File uploadPath = new File(uploadFolder, datePath);
+		  uploadPath.mkdirs();
+		  
+		  // 기본 for 문
+//		  for (int i = 0; i < uploadFile.length; i++) {
+//			  log.info("---------------------------------------------------");
+//			  log.info("파일 이름 : " + uploadFile[i].getOriginalFilename());
+//			  log.info("파일 타입 : " + uploadFile[i].getContentType());
+//			  log.info("파일 크기 : " + uploadFile[i].getSize());		
+//		  }
+		  
+		  // 향상된 for 문
+		  for(MultipartFile multipartFile : uploadFile) {
+			  log.info("---------------------------------------------------");
+			  log.info("파일 이름 : " + multipartFile.getOriginalFilename());
+			  log.info("파일 타입 : " + multipartFile.getContentType());
+			  log.info("파일 크기 : " + multipartFile.getSize());			  
+		  }
 	  }
 	  
 	  

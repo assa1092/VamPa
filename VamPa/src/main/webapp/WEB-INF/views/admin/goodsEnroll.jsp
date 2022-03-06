@@ -530,7 +530,7 @@
 	});
 	
 	/* var, method related with attachFile */
-	let regex = new RegExp("(.*?)\.(jpg|png)$");
+	let regex = new RegExp("(.*?)\.(jpg|png|JPG|PNG)$");
 	let maxSize = 1048576; //1MB	
 	
 	function fileCheck(fileName, fileSize){
@@ -541,7 +541,7 @@
 		}
 			  
 		if(!regex.test(fileName)){
-			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			alert("jpg / png 파일만 업로드 가능합니다. \n 해당 종류의 파일은 업로드할 수 없습니다.");
 			return false;
 		}
 		
