@@ -1,0 +1,35 @@
+================= git commit 방법 =================
+D:\Park\util\workspace
+workspace 폴더에서 우클릭 Git Bash Here
+
+git status  // git 변화상태 확인 
+git add *   // git 에 모든변화된것 추가
+git commit -m '메세지내용'  // 메세지 내용으로 커밋하기
+git push origin master  // branch 를 master로 해서 git 에 올리기
+
+
+
+
+================= 20220301
+VamPa 프로젝트와  Git 연결완료
+Git repositories
+  == D:\Park\util\workspace
+
+
+완료 : [24] 상품 이미지 업로드(파일 서버 전송) - 1 
+
+TODO : [24] 상품 이미지 업로드(파일 서버 전송) - 2 
+
+
+
+
+
+================= 20220305
+
+파일 업로드시 에러 메시지
+ == 해당 종류의 파일은 업로드할 수 없습니다.
+
+== 에러 처리부터 진행해야함
+진행중 : [24] 상품 이미지 업로드(파일 서버 전송) - 2 
+
+TODO : [24] 상품 이미지 업로드(파일 서버 전송) - 2 
