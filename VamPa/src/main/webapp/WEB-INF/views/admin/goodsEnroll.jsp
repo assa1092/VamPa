@@ -460,7 +460,7 @@
 		let sendDiscountRate = discountRate / 100;			// 서버에 전송할 할인값
 		let goodsPrice = $("input[name='bookPrice']").val();			// 원가
 		let discountPrice = goodsPrice * (1 - sendDiscountRate);		// 할인가격
-		debugger;
+		
 		
 		if(!isNaN(discountRate)){
 			$(".span_discount").html(discountPrice);		
@@ -501,9 +501,11 @@
 		console.log("fileList : " + fileList); 
 		console.log("fileObj : " + fileObj);
 		
+		/* 
 		if(!fileCheck(fileObj.name, fileObj.size)){
 			return false;
-		}
+		} 
+		*/
 		
 		// 파일 1개 업로드
 		// <input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
@@ -523,7 +525,13 @@
 	    	contentType : false,
 	    	data : formData,
 	    	type : 'POST',
-	    	dataType : 'json'
+	    	dataType : 'json',
+	    	success : function(result){
+	    		console.log(result);
+	    	},
+	    	error : function(result){
+	    		alert("이미지 파일이 아닙니다.");
+	    	}
 		});
 		
 		//alert("통과");
