@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ import net.coobird.thumbnailator.Thumbnails;
 @RequestMapping("admin")
 public class AdminController {
 	
-	private static final Logger log = LoggerFactory.getLogger(AdminController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired
 	private AuthorService authorService;
@@ -55,13 +56,13 @@ public class AdminController {
 	// 관리자 메인 페이지 이동
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void adminMainGET() throws Exception {
-		log.info("관리자 페이지 이동");
+		logger.info("관리자 페이지 이동");
 	}
 	
 	// 상품 관리 페이지 접속
 	@RequestMapping(value = "/goodsManage", method = RequestMethod.GET)
 	public void goodsManageGET(Criteria cri, Model model) throws Exception{
-		log.info("상품 관리 페이지 접속");
+		logger.info("상품 관리 페이지 접속");
 		
 		// 상품 리스트 데이터
 		List list = adminService.goodsGetList(cri);
@@ -82,7 +83,7 @@ public class AdminController {
 	// 상품 등록 페이지 접속
 	@RequestMapping(value = "/goodsEnroll", method = RequestMethod.GET)
 	public void goodsEnrollGET(Model model) throws Exception{
-		log.info("상품 등록 페이지 접속");
+		logger.info("상품 등록 페이지 접속");
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		
@@ -92,21 +93,21 @@ public class AdminController {
 		
 		model.addAttribute("cateList", cateList);
 		
-		log.info("++++   변경 전 : " + list);
-		log.info("++++   변경 후 : " + cateList);
+		logger.info("++++   변경 전 : " + list);
+		logger.info("++++   변경 후 : " + cateList);
 	}
 	
 	// 작가 등록 페이지 접속
 	@RequestMapping(value = "/authorEnroll", method = RequestMethod.GET)
 	public void authorEnrollGET() throws Exception{
-		log.info("작가 등록 페이지 접속");
+		logger.info("작가 등록 페이지 접속");
 
 		
 	}
 	// 작가 관리 페이지 접속
 	@RequestMapping(value = "/authorManage", method = RequestMethod.GET)
 	public void authorManageGET(Criteria cri, Model model) throws Exception{
-		log.info("작가 관리 페이지 접속");
+		logger.info("작가 관리 페이지 접속");
 		
 		List<AuthorVO> list = authorService.authorGetList(cri);
 		
@@ -126,7 +127,7 @@ public class AdminController {
 	// 작가 등록
 	@RequestMapping(value = "/authorEnroll.do", method = RequestMethod.POST)
 	public String authorEnrollPOST(AuthorVO author, RedirectAttributes rttr) throws Exception{
-		log.info("작가 등록 : " + author);
+		logger.info("작가 등록 : " + author);
 		
 		authorService.authorEnroll(author);
 		
@@ -139,7 +140,7 @@ public class AdminController {
 //	@RequestMapping(value = "/authorDetail", method = RequestMethod.GET)
 	@GetMapping({"/authorDetail","/authorModify"})
 	public void authorGetInfoGet(int authorId, Criteria cri, Model model) throws Exception{
-		log.info("작가 상세페이지 : " + authorId);
+		logger.info("작가 상세페이지 : " + authorId);
 		
 		AuthorVO authorInfo = authorService.authorGetDetail(authorId);
 		
@@ -151,7 +152,7 @@ public class AdminController {
 	// 작가 정보 수정
 	@PostMapping("/authorModify")
 	public String authorModifyPOST(AuthorVO author, RedirectAttributes rttr) throws Exception{
-		log.info("작가 정보 수정 : " + author);
+		logger.info("작가 정보 수정 : " + author);
 		
 		int result = authorService.authorModify(author);
 		
@@ -163,7 +164,7 @@ public class AdminController {
 	// 작가 정보 삭제
 	@PostMapping("/authorDelete")
 	public String authorDeletePOST(int authorId, RedirectAttributes rttr) throws Exception{
-		log.info("작가 정보 삭제 : " + authorId);
+		logger.info("작가 정보 삭제 : " + authorId);
 		
 		int result = 0;
 		
@@ -184,7 +185,7 @@ public class AdminController {
 	// 상품 등록 
 	@PostMapping("/goodsEnroll")
 	public String goodsEnrollPOST(BookVO book, RedirectAttributes rttr) throws Exception{
-		log.info("상품 등록 :" + book);
+		logger.info("상품 등록 :" + book);
 		
 		adminService.bookEnroll(book);
 		
@@ -197,7 +198,7 @@ public class AdminController {
 	  // 작가 검색 팝업창
 	  @GetMapping("/authorPop") 
 	  public void authorPopGET(Criteria cri, Model model) throws Exception{
-		  log.info("authorPopGET()======== ");
+		  logger.info("authorPopGET()======== ");
 		  
 		  cri.setAmount(5);
 		  
@@ -218,7 +219,7 @@ public class AdminController {
 	  // 상품 상세페이지
 	  @GetMapping({"/goodsDetail", "/goodsModify"})
 	  public void goodsGetInfoGet(int bookId, Criteria cri, Model model ) throws Exception{
-		  log.info("goodsGetInfo()=========" + bookId);
+		  logger.info("goodsGetInfo()=========" + bookId);
 		  
 		  BookVO bookInfo = adminService.goodsGetDetail(bookId);
 		  
@@ -242,7 +243,7 @@ public class AdminController {
 	  // 상품 정보 수정
 	  @PostMapping("/goodsModify")
 	  public String goodsModifyPOST(BookVO vo, RedirectAttributes rttr) throws Exception {
-		  log.info("상품 정보 수정======" + vo);
+		  logger.info("상품 정보 수정======" + vo);
 		  
 		  int result = adminService.goodsModify(vo);
 		  
@@ -254,7 +255,7 @@ public class AdminController {
 	  // 상품 정보 삭제
 	  @PostMapping("/goodsDelete")
 	  public String goodsDeletePOST(int bookId, RedirectAttributes rttr) throws Exception{
-		  log.info("상품 정보 삭제 : " + bookId);
+		  logger.info("상품 정보 삭제 : " + bookId);
 		  
 		  int result  = adminService.goodsDelete(bookId);
 		  
@@ -268,7 +269,7 @@ public class AdminController {
 	  // 파일 하나일 경우  MultipartFile uploadFile
 	  @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	  public ResponseEntity<List<AttachImageVO>> uploadAjaxAtionPOST(MultipartFile[] uploadFile) {		
-		  log.info("-----	uploadAjaxAtionPOST ");
+		  logger.info("-----	uploadAjaxAtionPOST ");
 		  
 		  // 이미지 파일 체크, MIME TYPE 체크
 		  for(MultipartFile multipartFile : uploadFile) {
@@ -277,7 +278,7 @@ public class AdminController {
 			  
 			  try {
 				type = Files.probeContentType(checkfile.toPath());
-				log.info("MIME TYPE : " + type);
+				logger.info("MIME TYPE : " + type);
 			  } catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -322,10 +323,10 @@ public class AdminController {
 		  
 		  // 향상된 for 문
 		  for(MultipartFile multipartFile : uploadFile) {
-			  log.info("---------------------------------------------------");
-			  log.info("파일 이름 : " + multipartFile.getOriginalFilename());
-			  log.info("파일 타입 : " + multipartFile.getContentType());
-			  log.info("파일 크기 : " + multipartFile.getSize());
+			  logger.info("---------------------------------------------------");
+			  logger.info("파일 이름 : " + multipartFile.getOriginalFilename());
+			  logger.info("파일 타입 : " + multipartFile.getContentType());
+			  logger.info("파일 크기 : " + multipartFile.getSize());
 			  
 			  // 이미지 정보 객체
 			  // 파일 이름, uuid, uploadPath 를 담아서보낸다.
@@ -405,6 +406,34 @@ public class AdminController {
 		  
 		  return result;
 	  }
+	  
+		// 이미지 파일 삭제
+		@PostMapping("/deleteFile")
+		public ResponseEntity<String> deleteFile(String fileName){
+			logger.info("deleteFile........" + fileName);
+			
+			File file = null;
+			
+			try {
+				// 썸네일 파일 삭제
+				file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+				file.delete();
+				
+				// 원본 파일 삭제
+				String originFileName = file.getAbsolutePath().replace("s_", "");
+				logger.info("originFilenName : " + originFileName);
+				file = new File(originFileName);
+				file.delete();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				return new ResponseEntity<String>("fail" , HttpStatus.NOT_IMPLEMENTED);
+			}
+			
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+			
+		}
 	  
 	  
 
