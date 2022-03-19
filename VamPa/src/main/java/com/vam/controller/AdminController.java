@@ -187,7 +187,7 @@ public class AdminController {
 	public String goodsEnrollPOST(BookVO book, RedirectAttributes rttr) throws Exception{
 		logger.info("상품 등록 :" + book);
 		
-		adminService.bookEnroll(book);
+		//adminService.bookEnroll(book);
 		
 		rttr.addFlashAttribute("enroll_result", book.getBookName());
 		

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.vam.model.AttachImageVO;
 import com.vam.model.BookVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -79,7 +80,11 @@ public class AdminMapperTests {
 			book.setBookIntro("책 소개 ");
 			book.setBookContents("책 목차 ");
 			
+			System.out.println("Before BookVO : " + book);
+			
 			mapper.bookEnroll(book);
+			
+			System.out.println("After BookVO : " + book);
 		}
 		
 //		@Test
@@ -110,4 +115,17 @@ public class AdminMapperTests {
 //			
 //		}
 		
+		// 이미지 등록
+//		@Test
+//		public void imageEnrollTest() {
+//			AttachImageVO vo = new AttachImageVO();
+//			
+//			vo.setBookId(23);
+//			vo.setFileName("test");
+//			vo.setUploadPath("test");
+//			vo.setUuid("test2");
+//			
+//			mapper.imageEnroll(vo);
+//		}
+//		
 }

@@ -5,6 +5,23 @@
   <mapper namespace="com.vam.mapper.AdminMapper">
 	<!-- 상품 등록  -->
 	<insert id="bookEnroll">
+		<!-- 
+			order="BEFORE"	:  insert 하기전에 selectKey 쿼리문이 실행
+			keyProperty="bookId" : 지정된 속성값 bookId 에 대해 
+			resultType="int" 지정된 속성값 int 형으로 반환
+		  -->
+		<selectKey resultType="int" keyProperty="bookId" order="AFTER">
+		<!--  
+			SELECT ISEQ$$_73075.currval from dual
+			
+			안먹혀서 밑에것으로 적용
+		-->
+		 SELECT  LAST_NUMBER
+		 FROM    USER_SEQUENCES
+		 WHERE  SEQUENCE_NAME = 'ISEQ$$_73075'
+		</selectKey>
+	
+	
 		INSERT INTO vam_book(bookName, authorId, publeYear, publisher, cateCode, bookPrice, 
 						bookStock, bookDiscount, bookIntro, bookContents  )
 				VALUES (#{bookName}, #{authorId}, #{publeYear}, #{publisher}, #{cateCode}, #{bookPrice}, 
@@ -66,9 +83,14 @@
 		WHERE bookId = #{bookId}
 	</update>
   
-  <!-- 상품 정보 삭제  -->
-  <delete id="goodsDelete">
-  	DELETE FROM vam_book WHERE bookId = #{bookId}
-  </delete>
+	  <!-- 상품 정보 삭제  -->
+	  <delete id="goodsDelete">
+	  	DELETE FROM vam_book WHERE bookId = #{bookId}
+	  </delete>
+	  
+	   <!-- 이미지 정보 등록  -->
+	   <insert id="imageEnroll">
+	   		INSERT INTO vam_image(bookId, fileName, uploadPath, uuid) values ( #{bookId}, #{fileName}, #{uploadPath}, #{uuid})
+	   </insert>
   
   </mapper>
