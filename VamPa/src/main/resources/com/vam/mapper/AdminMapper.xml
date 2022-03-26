@@ -11,14 +11,10 @@
 			resultType="int" 지정된 속성값 int 형으로 반환
 		  -->
 		<selectKey resultType="int" keyProperty="bookId" order="AFTER">
-		<!--  
+		  
 			SELECT ISEQ$$_73075.currval from dual
 			
-			안먹혀서 밑에것으로 적용
-		-->
-		 SELECT  LAST_NUMBER
-		 FROM    USER_SEQUENCES
-		 WHERE  SEQUENCE_NAME = 'ISEQ$$_73075'
+		<!-- SELECT VAM_BOOK_SEQ.nextval FROM DUAL -->
 		</selectKey>
 	
 	

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vam.mapper.AdminMapper;
 import com.vam.model.AttachImageVO;
@@ -23,6 +24,7 @@ public class AdminServiceImpl implements AdminService {
 	private AdminMapper adminMapper;
 	
 	// 상품 등록
+	@Transactional
 	@Override
 	public void bookEnroll(BookVO book) throws Exception {
 		log.info("(service) bookEnroll()===============");

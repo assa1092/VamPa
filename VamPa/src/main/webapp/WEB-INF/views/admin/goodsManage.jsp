@@ -125,7 +125,7 @@
 		if(result ===''){
 			return false;
 		}
-		alert("상품" + enroll_result + "을 등록하였습니다.");
+		alert("상품  " + enroll_result + "  을 등록하였습니다.");
 	}
 	
 	// 상품 수정 결과
