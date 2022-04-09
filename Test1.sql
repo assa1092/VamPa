@@ -1,4 +1,4 @@
---            Vampa ¼îÇÎ¸ô ÇÁ·ÎÁ§Æ®       ----
+--            Vampa ì‡¼í•‘ëª° í”„ë¡œì íŠ¸       ----
 
 SELECT TABLE_NAME, COLUMN_NAME, DATA_DEFAULT FROM USER_TAB_COLUMNS;
 --WHERE TABLE_NAME = 'VAM_BOOK';
@@ -18,7 +18,7 @@ SELECT * FROM vam_image;
 SELECT * FROM vam_author;
 select * from ALL_users;
 
--- ÀÌ¹ÌÁö ÆÄÀÏ ÀúÀå Å×ÀÌºí »ı¼º
+-- ì´ë¯¸ì§€ íŒŒì¼ ì €ì¥ í…Œì´ë¸” ìƒì„±
 create table vam_image(
     bookId int ,
     fileName varchar2(100) not null,
@@ -28,15 +28,15 @@ create table vam_image(
     foreign key (bookId) references vam_book(bookId)
 );
 
--- vam_book Å×ÀÌºíÀÇ ÀÎµ¦½º¸íÀ» Ã£´Â´Ù.
+-- vam_book í…Œì´ë¸”ì˜ ì¸ë±ìŠ¤ëª…ì„ ì°¾ëŠ”ë‹¤.
 SELECT * FROM USER_INDEXES ;-- WHERE TABLE_NAME = 'VAM_BOOK';
 commit;
 
---»óÇ°µî·Ï Àç±Í º¹»ç
+--ìƒí’ˆë“±ë¡ ì¬ê·€ ë³µì‚¬
 insert into vam_book(bookName, authorId, publeYear, publisher, cateCode, bookPrice, bookStock, bookDiscount,bookIntro, bookContents)
 (select bookName, authorId, publeYear, publisher, cateCode, bookPrice, bookStock, bookDiscount,bookIntro, bookContents from vam_book);
 
--- ¿Ü·¡Å° Ãß°¡
+-- ì™¸ë˜í‚¤ ì¶”ê°€
 alter table vam_book add foreign key (authorId) references vam_author(authorId);
 alter table vam_book add foreign key (cateCode) references vam_bcate(cateCode);
 
@@ -53,7 +53,7 @@ delete  vam_book;
 commit;
 
 -- Oracle
--- »óÇ° Å×ÀÌºí 
+-- ìƒí’ˆ í…Œì´ë¸” 
 create table vam_book(
     bookId number generated as identity (start with 1) primary key,
     bookName varchar2(50)   not null,
@@ -71,7 +71,7 @@ create table vam_book(
 );
 
 -- Oracle
--- Ä«Å×°í¸® Å×ÀÌºí
+-- ì¹´í…Œê³ ë¦¬ í…Œì´ë¸”
 create table vam_bcate(
     tier number(1) not null,
     cateName varchar2(30) not null,
@@ -81,52 +81,52 @@ create table vam_bcate(
     foreign key(cateParent) references vam_bcate(cateCode) 
 );
 
--- µ¥ÀÌÅÍ »ğÀÔ
-insert into vam_bcate(tier, cateName, cateCode) values (1, '±¹³»', '100000');
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '¼Ò¼³', '101000','100000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÇÑ±¹¼Ò¼³', '101001','101000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¿µ¹Ì¼Ò¼³', '101002','101000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÀÏº»¼Ò¼³', '101003','101000');
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '½Ã/¿¡¼¼ÀÌ', '102000','100000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÇÑ±¹½Ã', '102001','102000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÇØ¿Ü½Ã', '102002','102000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '°æÁ¦/°æ¿µ', '103000','100000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°æ¿µÀÏ¹İ', '103001','103000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°æ¿µÀÌ·Ğ', '103002','103000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°æÁ¦ÀÏ¹İ', '103003','103000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°æÁ¦ÀÌ·Ğ', '103004','103000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ÀÚ±â°è¹ß', '104000','100000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¼º°ø/Ã³¼¼', '104001','104000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÀÚ±â´É·Â°è¹ß', '104002','104000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÀÎ°£°ü°è', '104003','104000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ÀÎ¹®', '105000','100000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '½É¸®ÇĞ', '105001','105000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '±³À°ÇĞ', '105002','105000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'Ã¶ÇĞ', '105003','105000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '¿ª»ç/¹®È­', '106000','100000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¿ª»çÀÏ¹İ', '106001','106000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¼¼°è»ç', '106002','106000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÇÑ±¹»ç', '106003','106000');
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '°úÇĞ', '107000','100000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°úÇĞÀÌ·Ğ', '107001','107000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¼öÇĞ', '107002','107000');
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¹°¸®ÇĞ', '107003','107000');
-insert into vam_bcate(tier, cateName, cateCode) values (1, '±¹¿Ü', '200000');
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '¹®ÇĞ', '201000','200000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¼Ò¼³', '201001','201000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '½Ã', '201002','201000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'Èñ°î', '201003','201000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ÀÎ¹®/»çÈ¸', '202000','200000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '±³¾ç', '202001','202000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'Ã¶ÇĞ', '202002','202000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '°æÁ¦/°æ¿µ', '203000','200000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°æÁ¦ÇĞ', '203001','203000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '°æ¿µÇĞ', '203002','203000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ÅõÀÚ', '203003','203000');    
-    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, '°úÇĞ/±â¼ú', '204000','200000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '±³¾ç°úÇĞ', '204001','204000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¹°¸®ÇĞ', '204002','204000');    
-        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, '¼öÇĞ', '204003','204000');  
+-- ë°ì´í„° ì‚½ì…
+insert into vam_bcate(tier, cateName, cateCode) values (1, 'êµ­ë‚´', '100000');
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ì†Œì„¤', '101000','100000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'í•œêµ­ì†Œì„¤', '101001','101000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì˜ë¯¸ì†Œì„¤', '101002','101000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì¼ë³¸ì†Œì„¤', '101003','101000');
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ì‹œ/ì—ì„¸ì´', '102000','100000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'í•œêµ­ì‹œ', '102001','102000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'í•´ì™¸ì‹œ', '102002','102000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ê²½ì œ/ê²½ì˜', '103000','100000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê²½ì˜ì¼ë°˜', '103001','103000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê²½ì˜ì´ë¡ ', '103002','103000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê²½ì œì¼ë°˜', '103003','103000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê²½ì œì´ë¡ ', '103004','103000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ìê¸°ê³„ë°œ', '104000','100000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì„±ê³µ/ì²˜ì„¸', '104001','104000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ìê¸°ëŠ¥ë ¥ê³„ë°œ', '104002','104000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì¸ê°„ê´€ê³„', '104003','104000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ì¸ë¬¸', '105000','100000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì‹¬ë¦¬í•™', '105001','105000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'êµìœ¡í•™', '105002','105000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì² í•™', '105003','105000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ì—­ì‚¬/ë¬¸í™”', '106000','100000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì—­ì‚¬ì¼ë°˜', '106001','106000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì„¸ê³„ì‚¬', '106002','106000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'í•œêµ­ì‚¬', '106003','106000');
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ê³¼í•™', '107000','100000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê³¼í•™ì´ë¡ ', '107001','107000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ìˆ˜í•™', '107002','107000');
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ë¬¼ë¦¬í•™', '107003','107000');
+insert into vam_bcate(tier, cateName, cateCode) values (1, 'êµ­ì™¸', '200000');
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ë¬¸í•™', '201000','200000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì†Œì„¤', '201001','201000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì‹œ', '201002','201000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'í¬ê³¡', '201003','201000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ì¸ë¬¸/ì‚¬íšŒ', '202000','200000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'êµì–‘', '202001','202000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ì² í•™', '202002','202000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ê²½ì œ/ê²½ì˜', '203000','200000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê²½ì œí•™', '203001','203000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ê²½ì˜í•™', '203002','203000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'íˆ¬ì', '203003','203000');    
+    insert into vam_bcate(tier, cateName, cateCode, cateParent) values (2, 'ê³¼í•™/ê¸°ìˆ ', '204000','200000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'êµì–‘ê³¼í•™', '204001','204000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ë¬¼ë¦¬í•™', '204002','204000');    
+        insert into vam_bcate(tier, cateName, cateCode, cateParent) values (3, 'ìˆ˜í•™', '204003','204000');  
 
 commit;
 
@@ -156,20 +156,20 @@ SELECT memberId, memberName, adminCk, money, point  FROM book_member
   			WHERE memberId = 'test'
   			AND	  memberPw = 'test';
 
--- È¸¿ø°¡ÀÔ Äõ¸®(Oracle)
+-- íšŒì›ê°€ì… ì¿¼ë¦¬(Oracle)
 insert into book_member values('admin', '1111', 'admin', 'admin', 'admin', 'admin', 'admin', 1, sysdate, 1000000, 1000000);
 
--- ±¹°¡ Å×ÀÌºí »ı¼º
+-- êµ­ê°€ í…Œì´ë¸” ìƒì„±
 create table vam_nation(
     nationId varchar2(2) primary key,
     nationName varchar2(50)
 );
  
--- ±¹°¡ Å×ÀÌºí µ¥ÀÌÅÍ »ğÀÔ
-insert into vam_nation values ('01', '±¹³»');
-insert into vam_nation values ('02', '±¹¿Ü');
+-- êµ­ê°€ í…Œì´ë¸” ë°ì´í„° ì‚½ì…
+insert into vam_nation values ('01', 'êµ­ë‚´');
+insert into vam_nation values ('02', 'êµ­ì™¸');
  
--- ÀÛ°¡ Å×ÀÌºí »ı¼º
+-- ì‘ê°€ í…Œì´ë¸” ìƒì„±
 create table vam_author(
     authorId number generated as identity (start with 1) primary key,
     authorName varchar2(50),
@@ -178,9 +178,9 @@ create table vam_author(
     foreign key (nationId) references vam_nation(nationId)
 );
 
-insert into vam_author(authorName, nationId, authorIntro) values('À¯È«ÁØ', '01', 'ÀÛ°¡ ¼Ò°³ÀÔ´Ï´Ù' );
-insert into vam_author(authorName, nationId, authorIntro) values('±è³­µµ', '01', 'ÀÛ°¡ ¼Ò°³ÀÔ´Ï´Ù' );
-insert into vam_author(authorName, nationId, authorIntro) values('ÆúÅ©·ç±×¸Õ', '02', 'ÀÛ°¡ ¼Ò°³ÀÔ´Ï´Ù' );
+insert into vam_author(authorName, nationId, authorIntro) values('ìœ í™ì¤€', '01', 'ì‘ê°€ ì†Œê°œì…ë‹ˆë‹¤' );
+insert into vam_author(authorName, nationId, authorIntro) values('ê¹€ë‚œë„', '01', 'ì‘ê°€ ì†Œê°œì…ë‹ˆë‹¤' );
+insert into vam_author(authorName, nationId, authorIntro) values('í´í¬ë£¨ê·¸ë¨¼', '02', 'ì‘ê°€ ì†Œê°œì…ë‹ˆë‹¤' );
 
 commit;
 
@@ -192,9 +192,9 @@ alter table vam_author ADD updateDate date default sysdate;
 delete from vam_author;
 alter table vam_author modify (authorId GENERATED AS IDENTITY (START WITH 1));
 commit;
-insert into vam_author(authorName, nationId, authorIntro) values('À¯È«ÁØ', '01', 'ÀÛ°¡ ¼Ò°³ÀÔ´Ï´Ù' );
-insert into vam_author(authorName, nationId, authorIntro) values('±è³­µµ', '01', 'ÀÛ°¡ ¼Ò°³ÀÔ´Ï´Ù' );
-insert into vam_author(authorName, nationId, authorIntro) values('ÆúÅ©·ç±×¸Õ', '02', 'ÀÛ°¡ ¼Ò°³ÀÔ´Ï´Ù' );
+insert into vam_author(authorName, nationId, authorIntro) values('ìœ í™ì¤€', '01', 'ì‘ê°€ ì†Œê°œì…ë‹ˆë‹¤' );
+insert into vam_author(authorName, nationId, authorIntro) values('ê¹€ë‚œë„', '01', 'ì‘ê°€ ì†Œê°œì…ë‹ˆë‹¤' );
+insert into vam_author(authorName, nationId, authorIntro) values('í´í¬ë£¨ê·¸ë¨¼', '02', 'ì‘ê°€ ì†Œê°œì…ë‹ˆë‹¤' );
 
 
 SELECT * FROM vam_author;
@@ -204,16 +204,16 @@ select sysdate from dual;
 
 select * from user_indexes;
 
--- Àç±Í º¹»ç
+-- ì¬ê·€ ë³µì‚¬
 insert into vam_author(authorname, nationid)(select authorname, nationid from vam_author);
 commit;
 
-select count(*) from vam_author where authorname like '%³­%';
+select count(*) from vam_author where authorname like '%ë‚œ%';
 
 
 
 
--- Vampa °Ô½ÃÆÇ -----------------------------------------------------------------------------------
+-- Vampa ê²Œì‹œíŒ -----------------------------------------------------------------------------------
 
 create table vam_board(
     bno number generated always as IDENTITY,
@@ -225,22 +225,22 @@ create table vam_board(
     constraint pk_board PRIMARY key(bno)
 );
 
-insert into vam_board(title, content, writer) values ('Å×½ºÆ®1 Á¦¸ñ', 'Å×½ºÆ®1 ³»¿ë', 'ÀÛ°¡1');
-insert into vam_board(title, content, writer) values ('Å×½ºÆ®2 Á¦¸ñ', 'Å×½ºÆ®2 ³»¿ë', 'ÀÛ°¡2');
-insert into vam_board(title, content, writer) values ('Å×½ºÆ®3 Á¦¸ñ', 'Å×½ºÆ®3 ³»¿ë', 'ÀÛ°¡3');
+insert into vam_board(title, content, writer) values ('í…ŒìŠ¤íŠ¸1 ì œëª©', 'í…ŒìŠ¤íŠ¸1 ë‚´ìš©', 'ì‘ê°€1');
+insert into vam_board(title, content, writer) values ('í…ŒìŠ¤íŠ¸2 ì œëª©', 'í…ŒìŠ¤íŠ¸2 ë‚´ìš©', 'ì‘ê°€2');
+insert into vam_board(title, content, writer) values ('í…ŒìŠ¤íŠ¸3 ì œëª©', 'í…ŒìŠ¤íŠ¸3 ë‚´ìš©', 'ì‘ê°€3');
 commit;
 
 select * from vam_board ;
 
-update vam_board set title='Á¦¸ñ ¼öÁ¤', content='³»¿ë ¼öÁ¤', updateDate = sysdate where bno = 5;
+update vam_board set title='ì œëª© ìˆ˜ì •', content='ë‚´ìš© ìˆ˜ì •', updateDate = sysdate where bno = 5;
 
 delete from vam_board where bno = 23;
 
 select * from vam_board  order by bno desc;
--- Àç±Í º¹»ç
+-- ì¬ê·€ ë³µì‚¬
 insert into vam_board(title,content,writer)(select title,content, writer from vam_board);
  
--- Çà È®ÀÎ
+-- í–‰ í™•ì¸
 select count(*) from vam_board;
 commit;
 
