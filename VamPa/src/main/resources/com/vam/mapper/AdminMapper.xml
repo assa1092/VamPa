@@ -88,5 +88,10 @@
 	   <insert id="imageEnroll">
 	   		INSERT INTO vam_image(bookId, fileName, uploadPath, uuid) values ( #{bookId}, #{fileName}, #{uploadPath}, #{uuid})
 	   </insert>
+	   
+	   <!-- 지정 상품 이미지 전체 삭제  -->
+	   <delete id="deleteImageAll">
+	   		DELETE FROM vam_image WHERE bookId = #{bookId}
+	   </delete>
   
   </mapper>
